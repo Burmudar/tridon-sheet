@@ -46,6 +46,7 @@ LOCAL_APPS = (
     # custom users app
     'tridon.users.apps.UsersConfig',
     # Your stuff: custom apps go here
+    'tridon.sheet.apps.SheetConfig',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
