@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import SheetFile
+from .models import WorkbookFile
 
 # Register your models here.
-admin.site.register(SheetFile)
+admin.site.register(WorkbookFile)

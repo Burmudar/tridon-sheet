@@ -1,12 +1,12 @@
 from django import forms
-from .models import SheetFile
+from .models import WorkbookFile
 import hashlib
 
 
-class SheetFileForm(forms.ModelForm):
+class WorkbookFileForm(forms.ModelForm):
     class Meta:
-        model = SheetFile
-        fields = ['sheet_file']
+        model = WorkbookFile
+        fields = ['path']
 
     def add_sheet_hash(self):
         hasher = hashlib.sha256()
@@ -15,7 +15,7 @@ class SheetFileForm(forms.ModelForm):
         self.instance.sheet_hash = sheet_hash
 
     def clean(self):
-        cleaned_data = super(SheetFileForm, self).clean()
+        cleaned_data = super(WorkbookFileForm, self).clean()
         if self.file_has_valid_ext():
             raise forms.ValidationError("Only Excel files with ('xls' extension) can be uploaded")
         if self.instance.sheet_hash == '' or self.instance.sheet_hash == None:
@@ -29,5 +29,5 @@ class SheetFileForm(forms.ModelForm):
         return not sheet.name.endswith('xls')
 
     def is_duplicate(self):
-        sheets = SheetFile.objects.filter(sheet_hash__exact=self.instance.sheet_hash)
+        sheets = WorkbookFile.objects.filter(sheet_hash__exact=self.instance.sheet_hash)
         return len(sheets) > 0
