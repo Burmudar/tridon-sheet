@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import WorkbookFileForm
 from .sheets import extract_entries
+from .models import WorkbookEntry
 # Create your views here.
 
 
@@ -12,16 +13,10 @@ def sheet_upload(request):
         if form.is_valid():
             form.save()
             entries = extract_entries(form.instance)
-            save_entries(entries)
+            WorkbookEntry.objects.bulk_create(entries)
     else:
         form = WorkbookFileForm()
     return render(request, 'sheet/workbook_file_form.html', {'form': form})
-
-
-
-
-def save_entries(entries):
-    pass
 
 
 def index(request):
