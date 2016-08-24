@@ -49,5 +49,10 @@ class WorkbookEntry(models.Model):
     fuel_surcharge = models.DecimalField('Fuel Surchare Ex. Vat', max_digits=10, decimal_places=2)
     amount = models.DecimalField('Amount incl. VAT', max_digits=10, decimal_places=2)
 
+    def __eq__(self, other):
+        if super(self, other):
+            return self.__dict__ == other.__dict__
+        return False
+
     def is_empty(self):
         return self.date_received == ''
