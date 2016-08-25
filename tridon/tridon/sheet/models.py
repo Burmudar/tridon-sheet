@@ -50,9 +50,15 @@ class WorkbookEntry(models.Model):
     amount = models.DecimalField('Amount incl. VAT', max_digits=10, decimal_places=2)
 
     def __eq__(self, other):
-        if super(self, other):
-            return self.__dict__ == other.__dict__
-        return False
+        for i in self.__dict__:
+            if i == '_state':
+                continue
+            if self.__dict__[i] != other.__dict__[i]:
+                return False
+        return True
+
+    def __str__(self):
+        return str(self.__dict__)
 
     def is_empty(self):
         return self.date_received == ''

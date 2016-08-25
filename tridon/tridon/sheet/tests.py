@@ -9,7 +9,7 @@ class WorkbookProcessorTest(unittest.TestCase):
 
     def setUp(self):
         self.processor = WorkbookProcessor()
-        self.WORKBOOK_3_ENTRIES_START_ROW_1 = WorkbookFile(file="/test_resources/3_entries_start_row_1.xls")
+        self.WORKBOOK_3_ENTRIES_START_ROW_1 = WorkbookFile(file="test_resources/3_entries_start_row_1.xls")
 
     def test_col_idx(self):
         idx = self.processor.col_idx("A")
@@ -51,7 +51,7 @@ class WorkbookProcessorTest(unittest.TestCase):
                                     doc_fee=10.11,
                                     fuel_surcharge=14.92,
                                     amount=126.83
-                                ),
+                                )
             second = WorkbookEntry(date_received=datetime.datetime(2016, 5, 4, 22, 10, 00),
                                     consignment_id="169643990",
                                     consignment_no="TRE1891ZWARTKOP",
@@ -67,9 +67,9 @@ class WorkbookProcessorTest(unittest.TestCase):
                                     min_charge=75.37,
                                     doc_fee=10.11,
                                     fuel_surcharge=27.46,
-                                    amount=241.86
+                                    amount=241.8624,
                                 )
-            self.assertFalse(first, second)
+            self.assertNotEqual(first, second)
             firstv2 = WorkbookEntry(date_received=datetime.datetime(2016, 5, 3, 22, 15, 00),
                                     consignment_id="169579892",
                                     consignment_no="CTKIN117420",
@@ -87,62 +87,68 @@ class WorkbookProcessorTest(unittest.TestCase):
                                     fuel_surcharge=14.92,
                                     amount=126.83
                                 )
-            self.assertTrue(first, firstv2)
+            self.assertEqual(first, firstv2)
 
     def test_extract_entries(self):
         expected_entries = [
-            WorkbookEntry(date_received=datetime.datetime(2016, 5, 3, 22, 15, 00),
-                          consignment_id="169579892",
+            WorkbookEntry(date_received=datetime.datetime(2016, 5, 3, 22, 15, 6),
+                          consignment_id=169579892,
                           consignment_no="CTKIN117420",
                           reference="4) CTKIN117420 9) 28) 169579892",
-                          return_no=-1,
+                          return_no='',
                           service_level=406,
                           sender="C-TEK",
                           consignee="SS AGENCIES",
                           consignee_suburb="PORT ELIZABETH",
-                          packets="1",
+                          packets=1,
                           kgs_used=2.00,
                           rate_per_kg=1.94,
                           min_charge=86.14,
                           doc_fee=10.11,
                           fuel_surcharge=14.92,
-                          amount=126.83
+                          amount=126.825
                           ),
-            WorkbookEntry(date_received=datetime.datetime(2016, 5, 4, 22, 10, 00),
-                          consignment_id="169643990",
+            WorkbookEntry(date_received=datetime.datetime(2016, 5, 4, 22, 10, 6),
+                          consignment_id=169643990,
                           consignment_no="TRE1891ZWARTKOP",
                           reference="4) TRE1891ZWARTKOP 9) 28) 169643990",
-                          return_no=-1,
+                          return_no='',
                           service_level=406,
                           sender="TRIDON LOGISTICS (PTY) LTD.",
                           consignee="OUTDOOR WAREHOUSE CENTURION GATE",
-                          consignee_suburb="ZWARTKOP",
-                          packets="20",
+                          consignee_suburb="CENTURION",
+                          packets=20,
                           kgs_used=80.00,
                           rate_per_kg=1.31,
                           min_charge=75.37,
                           doc_fee=10.11,
                           fuel_surcharge=27.46,
-                          amount=241.86
+                          amount=241.8624
                           ),
-            WorkbookEntry(date_received=datetime.datetime(2016, 5, 16, 22, 14, 00),
-                          consignment_id="170240404",
+            WorkbookEntry(date_received=datetime.datetime(2016, 5, 16, 22, 14, 15),
+                          consignment_id=170240404,
                           consignment_no="CTKIN117573",
                           reference="4) CTKIN117573 9) 28) 170240404",
-                          return_no=-1,
+                          return_no='',
                           service_level=406,
                           sender="C-TEK",
                           consignee="SHAUN NEL",
                           consignee_suburb="LADYSMITH",
-                          packets="1",
-                          kgs_used=2.00,
+                          packets=1,
+                          kgs_used=3.00,
                           rate_per_kg=5.38,
                           min_charge=96.90,
                           doc_fee=10.11,
                           fuel_surcharge=16.59,
-                          amount=141.04
-                          ),
+                          amount=141.0408
+                          )
         ]
         entries = self.processor.extract_entries(self.WORKBOOK_3_ENTRIES_START_ROW_1)
         self.assertEquals(len(entries), len(expected_entries))
-
+        for i in range(len(entries)):
+            actual = entries[i]
+            expected = expected_entries[i]
+            for k in actual.__dict__:
+                if k == '_state':
+                    continue
+                self.assertEqual(actual.__dict__[k], expected.__dict__[k])

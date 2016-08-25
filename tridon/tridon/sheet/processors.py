@@ -9,11 +9,14 @@ ALPHABET_MAX = 26
 
 class WorkbookProcessor(object):
 
+    def __init__(self, start_row=0):
+        self.start_row_idx = start_row
+
     def extract_entries(self, workbook):
         entries = []
         with xlrd.open_workbook(workbook.file.path) as book:
             sh = book.sheet_by_index(0)
-            for rx in range(13, sh.nrows):
+            for rx in range(self.start_row_idx, sh.nrows):
                 row = sh.row(rx)
                 entry = self.create_entry(row)
                 if not entry.is_empty():
@@ -24,7 +27,7 @@ class WorkbookProcessor(object):
         entry = WorkbookEntry()
         for field in ENTRY_FIELDS:
             col = get_col_for_attr(field.name)
-            idx = self.col_idx(col)
+            idx = self.col_idx(col) - 1 #zero indexed
             cell = row[idx]
             if self.is_date_cell(cell):
                 date = xdate.xldate_as_datetime(cell.value, 0)
