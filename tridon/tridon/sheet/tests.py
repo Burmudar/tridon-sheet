@@ -9,7 +9,7 @@ class WorkbookProcessorTest(unittest.TestCase):
 
     def setUp(self):
         self.processor = WorkbookProcessor()
-        self.WORKBOOK_3_ENTRIES_START_ROW_1 = WorkbookFile(file="test_resources/3_entries_start_row_1.xls")
+        self.WORKBOOK_3_ENTRIES_START_ROW_1 = WorkbookFile(file="/test_resources/3_entries_start_row_1.xls")
 
     def test_col_idx(self):
         idx = self.processor.col_idx("A")

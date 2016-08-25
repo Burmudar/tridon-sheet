@@ -58,6 +58,7 @@ node_modules/
 
 # User-uploaded media
 tridon/media/
+!tridon/media/test_resources/
 
 # Hitch directory
 tests/.hitch
