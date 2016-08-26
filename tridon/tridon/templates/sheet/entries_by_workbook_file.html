@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Workbook Entries</h2>
+    <table border="0" cellspacing="5" cellpadding="5">
+        <tr>
+            <td>Date Received</td>
+            <td>Consignment ID</td>
+            <td>Consignment No</td>
+            <td>Reference"</td>
+            <td>Return No</td>
+            <td>Service Level</td>
+            <td>Sender Name</td>
+            <td>Consignee Name</td>
+            <td>Consignee suburb</td>
+            <td>Packets</td>
+            <td>KGs Used</td>
+            <td>Rate per KG</td>
+            <td>Min Charge</td>
+            <td>Document Fee</td>
+            <td>Fuel Surcharge</td>
+            <td>Amount</td>
+        </tr>
+        {% for entry in workbook_entries %}
+            <tr>
+                <td>{{ entry.date_received }}</td>
+                <td>{{ entry.consignment_id }}</td>
+                <td>{{ entry.consignment_no }}</td>
+                <td>{{ entry.reference }}</td>
+                <td>{{ entry.return_no }}</td>
+                <td>{{ entry.service_level }}</td>
+                <td>{{ entry.sender }}</td>
+                <td>{{ entry.consignee }}</td>
+                <td>{{ entry.consignee_suburb }}</td>
+                <td>{{ entry.packets }}</td>
+                <td>{{ entry.kgs_used }}</td>
+                <td>{{ entry.rate_per_kg }}</td>
+                <td>{{ entry.min_charge }}</td>
+                <td>{{ entry.doc_fee }}</td>
+                <td>{{ entry.fuel_surcharge }}</td>
+                <td>{{ entry.amount }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

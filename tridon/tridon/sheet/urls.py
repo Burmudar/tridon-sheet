@@ -17,4 +17,9 @@ urlpatterns = [
         view=views.sheet_upload,
         name='upload'
     ),
+    url(
+        regex=r'^(?P<workbook_pk>[0-9]+)/view/$',
+        view=views.SheetEntryView.as_view(),
+        name="entries"
+    ),
 ]

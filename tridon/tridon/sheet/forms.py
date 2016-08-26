@@ -1,6 +1,6 @@
 from django import forms
 from .models import WorkbookFile
-import hashlib
+from .utils import hash_file
 
 
 class WorkbookFileForm(forms.ModelForm):
@@ -9,10 +9,8 @@ class WorkbookFileForm(forms.ModelForm):
         fields = ['file']
 
     def add_sheet_hash(self):
-        hasher = hashlib.sha256()
-        hasher.update(self.files['file'].read())
-        file_hash = hasher.hexdigest()
-        self.instance.file_hash = file_hash
+        formFile = self.files['file']
+        self.instance.file_hash = hash_file(formFile)
 
     def clean(self):
         cleaned_data = super(WorkbookFileForm, self).clean()
