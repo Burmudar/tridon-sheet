@@ -58,6 +58,8 @@ node_modules/
 
 # User-uploaded media
 tridon/media/
+tridon/static/
+tridon/frontend/lib
 !tridon/media/test_resources/
 
 # Hitch directory

@@ -1,0 +1,22 @@
+{
+  "name": "tridon",
+  "description": "Extract information from excel invoice sheets",
+  "main": "",
+  "authors": [
+    "William Bezuidenhout <william.bezuidenhout+github@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Burmudar/tridon-sheet",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tridon/frontend/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "^4.6.3"
+  }
+}
