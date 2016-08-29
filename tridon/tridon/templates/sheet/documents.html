@@ -1,0 +1,12 @@
+{% extends "base2.html" %}
+{% load static %}
+
+{% block title %}Tridon Logistics | Documents{% endblock %}
+{% block content %}
+<ul class="document-list push-right">
+    <li><a href="{% static '/documents/Tridon_Logistics_Trading_Terms_Conditions.doc' %}"><div><i class="fa fa-arrow-circle-o-down fa-2x"></i>Terms and Conditions</div></a></li>
+    <li><a href="{% static '/documents/PM_Marine_Certificate_Application.xls' %}"><div><i class="fa fa-arrow-circle-o-down fa-2x"></i>Insurance application</div></a></li>
+    <li><a href="{% static '/documents/SHIPPING_CLEARING_INSTRUCTION_FORM_DOC.doc' %}"><div><i class="fa fa-arrow-circle-o-down fa-2x"></i>Shipping clearing instruction form</div></a></li>
+    <li><a href="{% static '/documents/TRIDON_CREDIT_APPLICATION_TO_ENGAGE_IN_TRADE.docx' %}"><div><i class="fa fa-arrow-circle-o-down fa-2x"></i>Credit Application</div></a></li>
+</ul>
+{% endblock %}

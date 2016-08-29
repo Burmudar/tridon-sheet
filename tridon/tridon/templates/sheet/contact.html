@@ -1,0 +1,48 @@
+{% extends "base2.html" %}
+{% block title %}Tridon Logistics | Contact Us{% endblock %}
+{% block content %}
+<div class="contact-details push-right">
+<ul>
+    <li ng-repeat="detail in details">
+        <h3>{{detail.heading}}</h3>
+        <a ng-href="{{detail.href}}">
+            <div>
+                <i ng-class="{ 'fa fa-envelope': detail.type == 'email'}"></i>{{detail.description}}
+            </div>
+        </a>
+    </li>
+</ul>
+<h3>Address</h3>
+<a href="">
+    <div>
+        <i class="fa fa-home"></i>63 Eland Road Aston Manor Kempton Park 1619
+    </div>
+</a>
+<h3>Telephone</h3>
+<a href="tel://+27110267692">
+    <div>
+        <i class="fa fa-phone"></i>Office - 0110267692
+    </div>
+</a>
+<a href="tel://+27110267697">
+    <div>
+        <i class="fa fa-phone"></i>Office - 0110267697
+    </div>
+</a>
+<a href="tel://+27865969053">
+    <div>
+        <i class="fa fa-fax"></i>Fax - 0865969053
+    </div>
+</a>
+<a href="tel://+27828660334">
+    <div>
+        <i class="fa fa-mobile-phone"></i>Cell - 0828660334
+    </div>
+</a>
+<a href="tel://+27723041141">
+    <div>
+        <i class="fa fa-mobile-phone"></i>Cell - 0723041141
+    </div>
+</a>
+</div>
+{% endblock %}

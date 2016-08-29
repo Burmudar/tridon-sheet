@@ -1,10 +1,10 @@
 {% extends "base2.html" %}
 {% load crispy_forms_tags %}
 
-{% block title %}Upload Spreadsheet{% endblock %}
+{% block title %}Tridon Logistics (Pty) Ltd. | Invoice{% endblock %}
 
 {% block content %}
-    <form class="form-horizontal" enctype="multipart/form-data" method="post" action="{% url 'sheet:upload' %}">
+    <form class="form-horizontal" enctype="multipart/form-data" method="post" action="{% url 'sheet:invoice' %}">
         {% csrf_token %}
         {{ form|crispy }}
         <div class="control-group">
@@ -13,4 +13,8 @@
           </div>
         </div>
     </form>
+    {% for wb in workbooks %}
+    <p> {{ wb.id }} - {{ wb.file.name }} </p>
+    {% endfor %}
+    <p>{{ entries|length }} entries </p>
 {% endblock %}
