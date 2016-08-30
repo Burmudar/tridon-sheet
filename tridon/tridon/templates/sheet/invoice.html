@@ -1,20 +1,16 @@
-{% extends "base2.html" %}
+{% extends "base.html" %}
 {% load crispy_forms_tags %}
 
 {% block title %}Tridon Logistics (Pty) Ltd. | Invoice{% endblock %}
 
 {% block content %}
-    <form class="form-horizontal" enctype="multipart/form-data" method="post" action="{% url 'sheet:invoice' %}">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <div class="control-group">
-          <div class="controls">
-            <button type="submit" class="btn">Upload</button>
-          </div>
-        </div>
-    </form>
+<label for="workbook">Spreadsheet <select name="workbook">
+        <option value="" {% if selected_wb == None %}selected{% endif %}>None</option>
     {% for wb in workbooks %}
-    <p> {{ wb.id }} - {{ wb.file.name }} </p>
+        <option value="{{ wb.id }}" {% if selected_wb == wb %}selected{% endif %}>{{ wb.name }} ({{wb.created}})</option>
     {% endfor %}
+    </select>
+</label>
     <p>{{ entries|length }} entries </p>
+    {% include 'sheet/entries_by_workbook_file.html' %}
 {% endblock %}

@@ -492,6 +492,19 @@ footer p{
       line-height:120px;
   }
 
+  table thead {
+      text-align: center;
+      font-weight: 700;
+  }
+
+  .row_even {
+      background-color: rgba(25,25,25, 0.8);
+  }
+
+  .row_odd {
+      background-color: hsla(0,0,50, 0.6);
+  }
+
 }
 
 @font-face {

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
 from .forms import WorkbookFileForm
@@ -11,13 +11,13 @@ from .models import WorkbookFile
 def sheet_upload(request):
     if request.method == 'POST':
         form = WorkbookFileForm(request.POST, request.FILES)
-        form.add_sheet_hash()
+        form.update_instance()
         if form.is_valid():
             form.save()
             processor = WorkbookProcessor(start_row=14)
             entries = processor.extract_entries(form.instance)
             WorkbookEntry.objects.bulk_create(entries)
-            return render(request, 'sheet/workbookentry_list.html', {'workbook', form.instance})
+            return redirect('sheet:invoice-detail', pk=form.instance.id)
     else:
         form = WorkbookFileForm()
         return render(request, 'sheet/workbook_file_form.html', {'form': form})
@@ -40,7 +40,12 @@ def contact(request):
 
 
 def invoice(request):
-    pass
+    context = {
+        'workbooks': WorkbookFile.objects.all(),
+        'selected_wb': None,
+        'entries': []
+    }
+    return render(request, 'sheet/invoice.html', context)
 
 
 class SheetEntryView(ListView):
@@ -65,8 +70,10 @@ class SheetDetailView(ListView, SingleObjectMixin):
     def get_context_data(self, **kwargs):
         context = super(SheetDetailView, self).get_context_data(**kwargs)
         context['workbooks'] = WorkbookFile.objects.all()
-        context['workbook'] = self.object
+        context['selected_wb'] = self.object
         return context
 
     def get_queryset(self):
+        if self.object is None:
+            return []
         return self.object.workbookentry_set.all()

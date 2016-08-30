@@ -8,8 +8,9 @@ class WorkbookFileForm(forms.ModelForm):
         model = WorkbookFile
         fields = ['file']
 
-    def add_sheet_hash(self):
+    def update_instance(self):
         formFile = self.files['file']
+        self.instance.name = formFile.name
         self.instance.file_hash = hash_file(formFile)
 
     def clean(self):

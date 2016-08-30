@@ -43,8 +43,13 @@ urlpatterns = [
         name='contact'
     ),
     url(
-        regex=r'^invoice/(?P<pk>[0-9]*)$',
-        view=views.SheetDetailView.as_view(),
+        regex=r'^invoice/$',
+        view=views.invoice,
         name='invoice'
+    ),
+    url(
+        regex=r'^invoice/(?P<pk>[0-9]+)$',
+        view=views.SheetDetailView.as_view(),
+        name='invoice-detail'
     ),
 ]

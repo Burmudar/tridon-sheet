@@ -28,6 +28,7 @@ def get_col_for_attr(attr):
 class WorkbookFile(models.Model):
 
     file = models.FileField('Path to Spreadsheet', upload_to='sheet_uploads/')
+    name = models.TextField(editable=False)
     file_hash = models.TextField(unique=True, max_length=256, editable=False)
     created = models.DateTimeField('Date Uploaded', editable=False, auto_now=True)
 
