@@ -46,6 +46,11 @@
           <li><a href="{% url 'sheet:about' %}">About Us</a></li>
           <li><a href="{% url 'sheet:contact' %}">Contact Us</a></li>
           <li><a href="{% url 'sheet:invoice' %}">Invoice</a></li>
+          {%if request.user.is_authenticated %}
+          <li><a href="{% url 'account_logout' %}">Log out</a></li>
+          {% else %}
+          <li><a href="{% url 'account_login' %}">Log in</a></li>
+          {% endif %}
       </ul>
     </nav>
     <main>

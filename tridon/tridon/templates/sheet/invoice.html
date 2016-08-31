@@ -4,13 +4,28 @@
 {% block title %}Tridon Logistics (Pty) Ltd. | Invoice{% endblock %}
 
 {% block content %}
-<label for="workbook">Spreadsheet <select name="workbook">
+<div class="vert-spacing">
+<label for="workbook">Spreadsheet <select name="workbook" onchange="loadSheet(event)">
         <option value="" {% if selected_wb == None %}selected{% endif %}>None</option>
     {% for wb in workbooks %}
         <option value="{{ wb.id }}" {% if selected_wb == wb %}selected{% endif %}>{{ wb.name }} ({{wb.created}})</option>
     {% endfor %}
     </select>
 </label>
+</div>
     <p>{{ entries|length }} entries </p>
     {% include 'sheet/entries_by_workbook_file.html' %}
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        function loadSheet(e) {
+            var id = e.target.value;
+            if (id !== "") {
+                window.location.assign("{% url 'sheet:invoice' %}" + id);
+            } else {
+                window.location.href= window.location.origin + "{% url 'sheet:invoice' %}";
+            }
+        }
+    </script>
 {% endblock %}

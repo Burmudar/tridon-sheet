@@ -1,6 +1,8 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import WorkbookFileForm
 from .processors import WorkbookProcessor
 from .models import WorkbookEntry
@@ -39,6 +41,7 @@ def contact(request):
     return render(request, 'sheet/contact.html')
 
 
+@login_required
 def invoice(request):
     context = {
         'workbooks': WorkbookFile.objects.all(),
@@ -59,7 +62,7 @@ class SheetEntryView(ListView):
         return WorkbookEntry.objects.filter(workbook_file=self.workbook)
 
 
-class SheetDetailView(ListView, SingleObjectMixin):
+class SheetDetailView(LoginRequiredMixin, ListView, SingleObjectMixin):
     template_name = "sheet/invoice.html"
     context_object_name = "entries"
 
