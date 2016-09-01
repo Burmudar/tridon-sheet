@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="vert-spacing">
-<label for="workbook">Spreadsheet <select name="workbook" onchange="loadSheet(event)">
+<label class="primary-text" for="workbook">Spreadsheet <select name="workbook" onchange="loadSheet(event)">
         <option value="" {% if selected_wb == None %}selected{% endif %}>None</option>
     {% for wb in workbooks %}
         <option value="{{ wb.id }}" {% if selected_wb == wb %}selected{% endif %}>{{ wb.name }} ({{wb.created}})</option>
@@ -13,7 +13,7 @@
     </select>
 </label>
 </div>
-    <p>{{ entries|length }} entries </p>
+    <p class="primary-text center-text">{{ entries|length }} entries </p>
     {% include 'sheet/entries_by_workbook_file.html' %}
 {% endblock %}
 

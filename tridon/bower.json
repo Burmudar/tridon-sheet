@@ -17,6 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "font-awesome": "^4.6.3"
+    "font-awesome": "^4.6.3",
+    "sweetalert": "^1.1.3"
   }
 }

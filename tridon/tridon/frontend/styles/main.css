@@ -134,6 +134,15 @@ button.menu img {
   width: 24px;
 }
 
+.primary-text {
+    color: #ffd740;
+    font-weight: 500;
+}
+
+.center-text {
+    text-align: center;
+}
+
 .promote-layer {
   /*
   This may promote the layer to a composited
@@ -549,7 +558,7 @@ footer p{
   table thead {
       text-align: center;
       font-weight: 700;
-      background-color: #222222;
+      background-color: rgba(244, 65, 22, 0.75);
       color: white;
   }
 
@@ -590,8 +599,8 @@ footer p{
       background-color: #EFEFEF;
   }
 
-  .entry-row:hover tbody {
-      font-weight: 500;
+  .entry-row:hover thead {
+      background-color: rgba(244,65,22,1);
   }
 
   .vert-spacing {

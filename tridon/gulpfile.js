@@ -21,6 +21,8 @@ var gulp = require('gulp'),
       runSequence = require('run-sequence'),
       browserSync = require('browser-sync').create(),
       mainBowerFiles = require('main-bower-files'),
+      filter = require('gulp-filter'),
+      vendor = require('gulp-concat-vendor'),
       reload = browserSync.reload;
 
 
@@ -44,7 +46,7 @@ var pathsConfig = function (appName) {
         sass: this.app + '/static/sass',
         fonts: this.app + '/static/fonts',
         images: this.app + '/static/images',
-        js: this.app + '/static/js',
+        js: this.app + '/static/scripts',
     }
   }
 };
@@ -62,7 +64,8 @@ gulp.task('fonts', function() {
 
 // Styles autoprefixing and minification
 gulp.task('styles', ['fonts'], function() {
-  return gulp.src(mainBowerFiles({filter: "**/*.scss"}).concat([paths.src.sass + '/**/*.scss', paths.src.css + '/**/*.css']))
+  return gulp.src(mainBowerFiles().concat([paths.src.sass + '/**/*.scss', paths.src.css + '/**/*.css']))
+    .pipe(filter("**/*.{css,scss}"))
     .pipe(sass().on('error', sass.logError))
     .pipe(plumber()) // Checks for errors
     .pipe(autoprefixer({browsers: ['last 2 version']})) // Adds vendor prefixes
@@ -74,10 +77,16 @@ gulp.task('styles', ['fonts'], function() {
 
 // Javascript minification
 gulp.task('scripts', function() {
-  return gulp.src([paths.src.js + '/**/*.js', mainBowerFiles({filter: "**/*.js"})])
+  return gulp.src(paths.src.js + '/**/*.js')
     .pipe(plumber()) // Checks for errors
     .pipe(concat("main.min.js"))
-    .pipe(uglify()) // Minifies the js
+    .pipe(gulp.dest(paths.dst.js));
+});
+
+gulp.task('vendor', function() {
+  return gulp.src(mainBowerFiles())
+    .pipe(filter("**/*.js"))
+    .pipe(vendor("vendor.min.js"))
     .pipe(gulp.dest(paths.dst.js));
 });
 
@@ -106,7 +115,7 @@ gulp.task('browserSync', function() {
 
 // Default task
 gulp.task('default', function() {
-    runSequence(['styles', 'scripts', 'imgCompression'], 'runServer', 'browserSync');
+    runSequence(['styles', 'vendor'], 'scripts');
 });
 
 ////////////////////////////////
