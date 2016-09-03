@@ -84,6 +84,7 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('vendor', function() {
+  console.log(mainBowerFiles());
   return gulp.src(mainBowerFiles())
     .pipe(filter("**/*.js"))
     .pipe(vendor("vendor.min.js"))
