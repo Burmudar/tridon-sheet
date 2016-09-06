@@ -29,3 +29,15 @@
         }
     </script>
 {% endblock %}
+
+{% block modal %}
+    <form class="form-horizontal" enctype="multipart/form-data" method="post" action="{% url 'sheet:upload' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn">Upload</button>
+          </div>
+        </div>
+    </form>
+{% endblock %}

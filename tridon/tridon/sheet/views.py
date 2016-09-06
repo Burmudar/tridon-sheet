@@ -74,6 +74,7 @@ class SheetDetailView(LoginRequiredMixin, ListView, SingleObjectMixin):
         context = super(SheetDetailView, self).get_context_data(**kwargs)
         context['workbooks'] = WorkbookFile.objects.all()
         context['selected_wb'] = self.object
+        context['form'] = WorkbookFileForm()
         return context
 
     def get_queryset(self):
